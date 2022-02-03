@@ -1,6 +1,7 @@
 import { Box, Button, Checkbox, Flex, Heading, Icon, Table, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react"
 import { RiAddLine, RiPencilLine } from "react-icons/ri"
 import { Header } from "../../components/header"
+import { Pagination } from "../../components/pagination"
 import { Sidebar } from "../../components/sidebar"
 
 const UserList = () => {
@@ -55,6 +56,7 @@ const UserList = () => {
 							</Tr>
 						</Tbody>
 					</Table>
+						<Pagination />
 				</Box>
 			</Flex>
 		</Box>
