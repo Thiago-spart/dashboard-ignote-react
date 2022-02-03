@@ -29,7 +29,7 @@ const CreateUser = () => {
 					<Flex mt="8" justify="flex-end">
 						<HStack spacing="4">
 							<Button colorScheme="whiteAlpha">Cancel</Button>
-							<Button colorScheme="whiteAlpha">Save</Button>
+							<Button colorScheme="pink">Save</Button>
 						</HStack>
 					</Flex>
 				</Box>
