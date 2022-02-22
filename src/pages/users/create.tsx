@@ -13,16 +13,16 @@ import { Input } from "../../components/Form/Input";
 import { Header } from "../../components/Header";
 import { Sidebar } from "../../components/Sidebar";
 
-import { SubmitHandler, useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-interface CreateUserDataFormProps {
-  name: string;
-  email: string;
-  password: string;
-  password_confirmation: string;
-}
+// interface CreateUserDataFormProps {
+//   name: string;
+//   email: string;
+//   password: string;
+//   password_confirmation: string;
+// }
 
 const CreateUserFormSchema = yup.object().shape({
   name: yup.string().required(),
@@ -39,9 +39,7 @@ const CreateUser = () => {
   });
   const { errors } = formState;
 
-  const handleCreateUser: SubmitHandler<
-    CreateUserDataFormProps
-  > = async values => {
+  const handleCreateUser: SubmitHandler<FieldValues> = async values => {
     await new Promise(resolve => setTimeout(resolve, 2000));
 
     console.log(values);
