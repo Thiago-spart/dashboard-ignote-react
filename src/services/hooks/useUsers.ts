@@ -5,6 +5,7 @@ interface UserProps {
   id: string;
   name: string;
   email: string;
+  created_at: string;
   createdAt: string;
 }
 
@@ -27,7 +28,7 @@ export const getUsers = async (page: number): Promise<GetUserResponseProps> => {
       id: user.id,
       name: user.name,
       email: user.email,
-      createdAt: new Date(user.createdAt).toLocaleDateString("pt-BR", {
+      createdAt: new Date(user.created_at).toLocaleDateString("pt-BR", {
         day: "2-digit",
         month: "long",
         year: "numeric",
@@ -46,7 +47,7 @@ export const useUsers = (page: number) => {
     ["users", page],
     () => getUsers(page),
     {
-      staleTime: 1000 * 60 * 10, //10 minutes
+      staleTime: 1000 * 5, //10 minutes
     }
   );
 };
