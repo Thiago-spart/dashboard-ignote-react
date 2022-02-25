@@ -46,7 +46,7 @@ export const useUsers = (page: number) => {
     ["users", page],
     () => getUsers(page),
     {
-      staleTime: 1000 * 5, //5 seconds
+      staleTime: 1000 * 60 * 10, //10 minutes
     }
   );
 };

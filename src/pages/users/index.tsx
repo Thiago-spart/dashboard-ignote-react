@@ -14,14 +14,17 @@ import {
   Thead,
   Tr,
   useBreakpointValue,
+  Link,
 } from "@chakra-ui/react";
-import Link from "next/link";
+import NextLink from "next/link";
 import { useState } from "react";
 import { RiAddLine, RiPencilLine } from "react-icons/ri";
 import { Header } from "../../components/Header";
 import { Pagination } from "../../components/Pagination";
 import { Sidebar } from "../../components/Sidebar";
+import { api } from "../../services/api";
 import { useUsers } from "../../services/hooks/useUsers";
+import { queryClient } from "../../services/queryClient";
 
 const UserList = () => {
   const [page, setPage] = useState(1);
@@ -31,6 +34,20 @@ const UserList = () => {
     base: false,
     lg: true,
   });
+
+  const handlePrefetchUser = async (userId: string) => {
+    await queryClient.prefetchQuery(
+      ["user", userId],
+      async () => {
+        const res = await api.get(`users/${userId}`);
+
+        return res.data;
+      },
+      {
+        staleTime: 1000 * 60 * 10, //10 minutes
+      }
+    );
+  };
 
   return (
     <Box>
@@ -46,7 +63,7 @@ const UserList = () => {
               )}
             </Heading>
 
-            <Link href="/users/create" passHref>
+            <NextLink href="/users/create" passHref>
               <Button
                 as="a"
                 size="sm"
@@ -56,7 +73,7 @@ const UserList = () => {
               >
                 Add new
               </Button>
-            </Link>
+            </NextLink>
           </Flex>
 
           {isLoading ? (
@@ -88,7 +105,14 @@ const UserList = () => {
                       </Td>
                       <Td>
                         <Box>
-                          <Text fontWeight="bold">{name}</Text>
+                          <Text fontWeight="bold">
+                            <Link
+                              color="purple.400"
+                              onMouseEnter={() => handlePrefetchUser(id)}
+                            >
+                              {name}
+                            </Link>
+                          </Text>
                           <Text fontSize="sm" color="gray.300">
                             {email}
                           </Text>
