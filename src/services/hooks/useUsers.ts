@@ -8,8 +8,19 @@ interface UserProps {
   createdAt: string;
 }
 
-export const getUsers = async (): Promise<UserProps[]> => {
-  const { data } = await api.get("users");
+interface GetUserResponseProps {
+  totalCount: number;
+  users: UserProps[]
+}
+
+export const getUsers = async (page: number): Promise<GetUserResponseProps> => {
+  const { data, headers } = await api.get("users", {
+    params: {
+      page,
+    }
+  });
+
+  const totalCount = Number(headers["x-total-count"])
 
   const users = data.users.map((user: UserProps) => {
     return {
@@ -24,13 +35,16 @@ export const getUsers = async (): Promise<UserProps[]> => {
     };
   });
  
-  return users; 
+  return {
+    users,
+    totalCount,
+  }; 
 }
 
-export const useUsers = () => {
+export const useUsers = (page: number) => {
   return useQuery(
-    "users",
-    getUsers,
+    ["users", page],
+    () => getUsers(page),
     {
       staleTime: 1000 * 5, //5 seconds
     }
