@@ -26,6 +26,8 @@ import { api } from "../../services/api";
 import { useUsers } from "../../services/hooks/useUsers";
 import { queryClient } from "../../services/queryClient";
 
+const TEN_MINUTES_IN_MILLISECONDS = 1000 * 60 * 10; //10 minutes;
+
 const UserList = () => {
   const [page, setPage] = useState(1);
   const { data, isLoading, error, isFetching } = useUsers(page);
@@ -37,14 +39,14 @@ const UserList = () => {
 
   const handlePrefetchUser = async (userId: string) => {
     await queryClient.prefetchQuery(
-      ["user", userId],
+      ["user", { userId }],
       async () => {
         const res = await api.get(`users/${userId}`);
 
         return res.data;
       },
       {
-        staleTime: 1000 * 60 * 10, //10 minutes
+        staleTime: TEN_MINUTES_IN_MILLISECONDS,
       }
     );
   };
