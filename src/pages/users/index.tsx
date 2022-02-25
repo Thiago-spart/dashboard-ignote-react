@@ -32,8 +32,6 @@ const UserList = () => {
     lg: true,
   });
 
-  console.log(page);
-
   return (
     <Box>
       <Header />
