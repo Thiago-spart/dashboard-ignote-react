@@ -28,7 +28,7 @@ const SignIn: NextPage = () => {
   }) => {
     await new Promise(resolve => setTimeout(resolve, 2000));
 
-    console.log(email, password);
+    // console.log(email, password);
   };
 
   return (
