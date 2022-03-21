@@ -1,3 +1,41 @@
 {
-  "extends": "next/core-web-vitals"
+	"root": true,
+	"extends": [
+		"@techmmunity/eslint-config/common",
+		"@techmmunity/eslint-config/jest",
+		"@techmmunity/eslint-config/ts-nextjs"
+	],
+	"rules": {
+		"capitalized-comments": 0,
+		"import-helpers/order-imports": [
+			"warn",
+			{
+				"newlinesBetween": "always",
+				"groups": [
+					"/next/",
+					"/react/",
+					"/styled-components/",
+					"module",
+					"/pages/",
+					"/web/components/",
+					"/components/",
+					"/contexts/",
+					"/hooks/",
+					"/assets/",
+					"/configs/",
+					"/helpers/",
+					"/layouts/",
+					"/utils/",
+					"/types/",
+					"/styles/",
+					["parent", "sibling", "index"]
+				],
+				"alphabetize": {
+					"order": "asc",
+					"ignoreCase": true,
+					"@next/next/no-img-element": false
+				}
+			}
+		]
+	}
 }
