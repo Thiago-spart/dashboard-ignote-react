@@ -6,6 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 import { Input } from "web/components/Form/Input";
+import { HeadTitle } from "web/components/HeadTitle";
 
 import type { FCWithLayout } from "types/interfaces/layout";
 
@@ -38,41 +39,44 @@ export const SignIn: FCWithLayout = () => {
 	};
 
 	return (
-		<Flex w="100vw" h="100vh" align="center" justify="center" as="main">
-			<Flex
-				as="form"
-				w="100%"
-				maxW="360"
-				bg="gray.800"
-				p="8"
-				borderRadius="8"
-				flexDir="column"
-				onSubmit={handleSubmit(handleSignIn)}
-			>
-				<Stack spacing="4">
-					<Input
-						label="E-mail"
-						type="email"
-						error={errors.email}
-						{...register("email")}
-					/>
-					<Input
-						label="Password"
-						type="password"
-						error={errors.password}
-						{...register("password")}
-					/>
-				</Stack>
-				<Button
-					type="submit"
-					mt="6"
-					colorScheme="pink"
-					size="lg"
-					isLoading={formState.isSubmitting}
+		<>
+			<HeadTitle title="Log-in" />
+			<Flex w="100vw" h="100vh" align="center" justify="center" as="main">
+				<Flex
+					as="form"
+					w="100%"
+					maxW="360"
+					bg="gray.800"
+					p="8"
+					borderRadius="8"
+					flexDir="column"
+					onSubmit={handleSubmit(handleSignIn)}
 				>
-					Entrar
-				</Button>
+					<Stack spacing="4">
+						<Input
+							label="E-mail"
+							type="email"
+							error={errors.email}
+							{...register("email")}
+						/>
+						<Input
+							label="Password"
+							type="password"
+							error={errors.password}
+							{...register("password")}
+						/>
+					</Stack>
+					<Button
+						type="submit"
+						mt="6"
+						colorScheme="pink"
+						size="lg"
+						isLoading={formState.isSubmitting}
+					>
+						Entrar
+					</Button>
+				</Flex>
 			</Flex>
-		</Flex>
+		</>
 	);
 };

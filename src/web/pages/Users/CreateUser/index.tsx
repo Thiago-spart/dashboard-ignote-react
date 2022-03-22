@@ -22,6 +22,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 import { Input } from "web/components/Form/Input";
+import { HeadTitle } from "web/components/HeadTitle";
 
 import type { FCWithLayout } from "types/interfaces/layout";
 
@@ -79,67 +80,71 @@ export const CreateUser: FCWithLayout = () => {
 	};
 
 	return (
-		<Box
-			as="form"
-			onSubmit={handleSubmit(handleCreateUser)}
-			flex="1"
-			borderRadius="8"
-			bg="gray.800"
-			p={["6", "8"]}
-		>
-			<Heading size="lg" fontWeight="normal">
-				Create User
-			</Heading>
+		<>
+			<HeadTitle title="Add user" />
 
-			<Divider my="6" borderColor="gray.700" />
+			<Box
+				as="form"
+				onSubmit={handleSubmit(handleCreateUser)}
+				flex="1"
+				borderRadius="8"
+				bg="gray.800"
+				p={["6", "8"]}
+			>
+				<Heading size="lg" fontWeight="normal">
+					Create User
+				</Heading>
 
-			<VStack spacing="8">
-				<SimpleGrid minChildWidth="240px" spacing={["6", "8"]} w="100%">
-					<Input
-						label="Complete Name"
-						{...register("name")}
-						error={errors.name}
-					/>
-					<Input
-						type="email"
-						label="E-mail"
-						{...register("email")}
-						error={errors.email}
-					/>
-				</SimpleGrid>
+				<Divider my="6" borderColor="gray.700" />
 
-				<SimpleGrid minChildWidth="240px" spacing={["6", "8"]} w="100%">
-					<Input
-						type="password"
-						label="Password"
-						error={errors.password}
-						{...register("password")}
-					/>
-					<Input
-						type="password"
-						label="Confirming password"
-						error={errors.password_confirmation}
-						{...register("password_confirmation")}
-					/>
-				</SimpleGrid>
-			</VStack>
+				<VStack spacing="8">
+					<SimpleGrid minChildWidth="240px" spacing={["6", "8"]} w="100%">
+						<Input
+							label="Complete Name"
+							{...register("name")}
+							error={errors.name}
+						/>
+						<Input
+							type="email"
+							label="E-mail"
+							{...register("email")}
+							error={errors.email}
+						/>
+					</SimpleGrid>
 
-			<Flex mt="8" justify="flex-end">
-				<HStack spacing="4">
-					<Link href="/users" passHref>
-						<Button as="a" colorScheme="whiteAlpha">
-							Cancel
+					<SimpleGrid minChildWidth="240px" spacing={["6", "8"]} w="100%">
+						<Input
+							type="password"
+							label="Password"
+							error={errors.password}
+							{...register("password")}
+						/>
+						<Input
+							type="password"
+							label="Confirming password"
+							error={errors.password_confirmation}
+							{...register("password_confirmation")}
+						/>
+					</SimpleGrid>
+				</VStack>
+
+				<Flex mt="8" justify="flex-end">
+					<HStack spacing="4">
+						<Link href="/users" passHref>
+							<Button as="a" colorScheme="whiteAlpha">
+								Cancel
+							</Button>
+						</Link>
+						<Button
+							colorScheme="pink"
+							type="submit"
+							isLoading={formState.isSubmitting}
+						>
+							Save
 						</Button>
-					</Link>
-					<Button
-						colorScheme="pink"
-						type="submit"
-						isLoading={formState.isSubmitting}
-					>
-						Save
-					</Button>
-				</HStack>
-			</Flex>
-		</Box>
+					</HStack>
+				</Flex>
+			</Box>
+		</>
 	);
 };

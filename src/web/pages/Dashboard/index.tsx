@@ -5,6 +5,8 @@ import { Box, SimpleGrid, Text, theme } from "@chakra-ui/react";
 
 import type { ApexOptions } from "apexcharts";
 
+import { HeadTitle } from "../../components/HeadTitle";
+
 import type { FCWithLayout } from "types/interfaces/layout";
 
 const Chart = dynamic(() => import("react-apexcharts"), {
@@ -68,20 +70,24 @@ const series = [
 
 export const DashBoard: FCWithLayout = () => {
 	return (
-		<SimpleGrid flex="1" gap="4" minChildWidth="320px" align="flex-start">
-			<Box p={["6", "8"]} bg="gray.800" borderRadius="8" pb="4">
-				<Text fontSize="lg" mb="4">
-					Week subscribers
-				</Text>
-				<Chart type="area" height="160" series={series} options={options} />
-			</Box>
+		<>
+			<HeadTitle title="Dashboard" />
 
-			<Box p={["6", "8"]} bg="gray.800" borderRadius="8" pb="4">
-				<Text fontSize="lg" mb="4">
-					Opening tax
-				</Text>
-				<Chart type="area" height="160" series={series} options={options} />
-			</Box>
-		</SimpleGrid>
+			<SimpleGrid flex="1" gap="4" minChildWidth="320px" align="flex-start">
+				<Box p={["6", "8"]} bg="gray.800" borderRadius="8" pb="4">
+					<Text fontSize="lg" mb="4">
+						Week subscribers
+					</Text>
+					<Chart type="area" height="160" series={series} options={options} />
+				</Box>
+
+				<Box p={["6", "8"]} bg="gray.800" borderRadius="8" pb="4">
+					<Text fontSize="lg" mb="4">
+						Opening tax
+					</Text>
+					<Chart type="area" height="160" series={series} options={options} />
+				</Box>
+			</SimpleGrid>
+		</>
 	);
 };
