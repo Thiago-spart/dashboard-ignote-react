@@ -4,6 +4,8 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 
+import { LayoutWrapper } from "web/layouts/wrapper";
+
 import { SidebarDrawerProvider } from "../../../context/SidebarDrawerContext";
 import { makeServer } from "../../../services/mirage";
 import { queryClient } from "../../../services/queryClient";
@@ -18,7 +20,9 @@ export const MyApp = ({ Component, pageProps }: AppProps) => {
 		<QueryClientProvider client={queryClient}>
 			<ChakraProvider theme={theme}>
 				<SidebarDrawerProvider>
-					<Component {...pageProps} />
+					<LayoutWrapper>
+						<Component {...pageProps} />
+					</LayoutWrapper>
 				</SidebarDrawerProvider>
 			</ChakraProvider>
 

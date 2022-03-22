@@ -1,13 +1,11 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers */
-import type { NextPage } from "next";
 import dynamic from "next/dynamic";
 
-import { Box, Flex, SimpleGrid, Text, theme } from "@chakra-ui/react";
+import { Box, SimpleGrid, Text, theme } from "@chakra-ui/react";
 
 import type { ApexOptions } from "apexcharts";
 
-import { Header } from "web/components/Header";
-import { Sidebar } from "web/components/Sidebar";
+import type { FCWithLayout } from "types/interfaces/layout";
 
 const Chart = dynamic(() => import("react-apexcharts"), {
 	ssr: false,
@@ -68,29 +66,22 @@ const series = [
 	},
 ];
 
-export const DashBoard: NextPage = () => {
+export const DashBoard: FCWithLayout = () => {
 	return (
-		<Flex as="main" direction="column" h="100vh">
-			<Header />
-			<Flex w="100%" my="6" maxW="1480" px="6">
-				<Sidebar />
+		<SimpleGrid flex="1" gap="4" minChildWidth="320px" align="flex-start">
+			<Box p={["6", "8"]} bg="gray.800" borderRadius="8" pb="4">
+				<Text fontSize="lg" mb="4">
+					Week subscribers
+				</Text>
+				<Chart type="area" height="160" series={series} options={options} />
+			</Box>
 
-				<SimpleGrid flex="1" gap="4" minChildWidth="320px" align="flex-start">
-					<Box p={["6", "8"]} bg="gray.800" borderRadius="8" pb="4">
-						<Text fontSize="lg" mb="4">
-							Week subscribers
-						</Text>
-						<Chart type="area" height="160" series={series} options={options} />
-					</Box>
-
-					<Box p={["6", "8"]} bg="gray.800" borderRadius="8" pb="4">
-						<Text fontSize="lg" mb="4">
-							Opening tax
-						</Text>
-						<Chart type="area" height="160" series={series} options={options} />
-					</Box>
-				</SimpleGrid>
-			</Flex>
-		</Flex>
+			<Box p={["6", "8"]} bg="gray.800" borderRadius="8" pb="4">
+				<Text fontSize="lg" mb="4">
+					Opening tax
+				</Text>
+				<Chart type="area" height="160" series={series} options={options} />
+			</Box>
+		</SimpleGrid>
 	);
 };
