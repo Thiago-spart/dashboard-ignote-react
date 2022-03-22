@@ -1,6 +1,4 @@
-import type { NextPage } from "next";
-
-import { Flex, Button, Stack } from "@chakra-ui/react";
+import { Button, Flex, Stack } from "@chakra-ui/react";
 import type { FieldValues, SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
 
@@ -8,6 +6,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 import { Input } from "web/components/Form/Input";
+
+import type { FCWithLayout } from "types/interfaces/layout";
 
 /*
  * interface SignInDataFormProps {
@@ -21,7 +21,7 @@ const signInFormSchema = yup.object().shape({
 	password: yup.string().required(),
 });
 
-export const SignIn: NextPage = () => {
+export const SignIn: FCWithLayout = () => {
 	const { register, handleSubmit, formState } = useForm({
 		resolver: yupResolver(signInFormSchema),
 	});
