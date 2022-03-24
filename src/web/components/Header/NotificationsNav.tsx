@@ -1,5 +1,11 @@
-import { Flex, Icon } from "@chakra-ui/react";
-import { RiNotificationLine, RiUserAddLine } from "react-icons/ri";
+import { signOut } from "next-auth/react";
+
+import { Button, Flex, Icon } from "@chakra-ui/react";
+import {
+	RiLogoutCircleLine,
+	RiNotificationLine,
+	RiUserAddLine,
+} from "react-icons/ri";
 
 import { NextLink } from "../NextLink";
 
@@ -25,6 +31,15 @@ export const NotificationsNav = () => {
 					_hover={{ filter: "brightness(0.8)" }}
 				/>
 			</NextLink>
+
+			<Button variant="unstyled" onClick={() => signOut()}>
+				<Icon
+					as={RiLogoutCircleLine}
+					transition="0.4s"
+					fontSize="20"
+					_hover={{ filter: "brightness(0.8)" }}
+				/>
+			</Button>
 		</Flex>
 	);
 };

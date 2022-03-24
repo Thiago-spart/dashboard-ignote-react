@@ -1,3 +1,4 @@
+import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
 
 import { ChakraProvider } from "@chakra-ui/react";
@@ -18,13 +19,15 @@ if (process.env.NODE_ENV === "development") {
 export const MyApp = ({ Component, pageProps }: AppProps) => {
 	return (
 		<QueryClientProvider client={queryClient}>
-			<ChakraProvider theme={theme}>
-				<SidebarDrawerProvider>
-					<LayoutWrapper>
-						<Component {...pageProps} />
-					</LayoutWrapper>
-				</SidebarDrawerProvider>
-			</ChakraProvider>
+			<SessionProvider session={pageProps.session}>
+				<ChakraProvider theme={theme}>
+					<SidebarDrawerProvider>
+						<LayoutWrapper>
+							<Component {...pageProps} />
+						</LayoutWrapper>
+					</SidebarDrawerProvider>
+				</ChakraProvider>
+			</SessionProvider>
 
 			<ReactQueryDevtools />
 		</QueryClientProvider>
