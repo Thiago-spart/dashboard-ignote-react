@@ -1,3 +1,5 @@
+import { useSession } from "next-auth/react";
+
 import { Flex, Icon, IconButton, useBreakpointValue } from "@chakra-ui/react";
 import { RiMenuLine } from "react-icons/ri";
 
@@ -9,6 +11,8 @@ import { SearchBox } from "./SearchBox";
 
 export const Header: React.FC = () => {
 	const { onOpen } = useSidebarDrawer();
+
+	const { data } = useSession();
 
 	const isWideVersion = useBreakpointValue({
 		base: false,
@@ -43,7 +47,12 @@ export const Header: React.FC = () => {
 
 			<Flex align="center" ml="auto">
 				<NotificationsNav />
-				<Profile showProfileData={isWideVersion} />
+				<Profile
+					showProfileData={isWideVersion}
+					email={String(data?.user?.email)}
+					name={String(data?.user?.name)}
+					userImg={String(data?.user?.image)}
+				/>
 			</Flex>
 		</Flex>
 	);
