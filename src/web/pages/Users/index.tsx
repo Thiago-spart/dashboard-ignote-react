@@ -23,7 +23,7 @@ import {
 	Link,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { RiAddLine, RiPencilLine } from "react-icons/ri";
+import { RiAddLine, RiCloseLine, RiPencilLine } from "react-icons/ri";
 
 import { HeadTitle } from "web/components/HeadTitle";
 import { Pagination } from "web/components/Pagination";
@@ -39,7 +39,7 @@ const TEN_MINUTES_IN_MILLISECONDS = 1000 * 60 * 10; //10 minutes;
 
 export const UserList: FCWithLayout = () => {
 	const [page, setPage] = useState(1);
-	const { data, isLoading, error, isFetching } = useUsers(page);
+	const { data, isLoading, error, isFetching, refetch } = useUsers(page);
 
 	const isWideVersion = useBreakpointValue({
 		base: false,
@@ -59,6 +59,18 @@ export const UserList: FCWithLayout = () => {
 				// eslint-disable-next-line prettier/prettier
 			}
 		);
+	};
+
+	const deleteUser = async (id: string) => {
+		try {
+			const res = await api.delete(`users/${id}`);
+
+			refetch();
+
+			return res;
+		} catch (err: unknown) {
+			return err;
+		}
 	};
 
 	return (
@@ -131,15 +143,30 @@ export const UserList: FCWithLayout = () => {
 										{isWideVersion && <Td>{createdAt}</Td>}
 										{isWideVersion && (
 											<Td>
-												<Button
-													as="a"
-													size="sm"
-													fontSize="sm"
-													colorScheme="purple"
-													leftIcon={<Icon as={RiPencilLine} fontSize="16" />}
-												>
-													Edit
-												</Button>
+												<Flex align="center" justify="center" gap="4">
+													<Button
+														as="a"
+														size="sm"
+														fontSize="sm"
+														colorScheme="purple"
+														cursor="pointer"
+														aria-label="Edit user"
+													>
+														<Icon as={RiPencilLine} fontSize="16" />
+													</Button>
+
+													<Button
+														as="a"
+														size="sm"
+														fontSize="sm"
+														cursor="pointer"
+														colorScheme="red"
+														aria-label="Delete user"
+														onClick={() => deleteUser(id)}
+													>
+														<Icon as={RiCloseLine} fontSize="16" />
+													</Button>
+												</Flex>
 											</Td>
 										)}
 									</Tr>
