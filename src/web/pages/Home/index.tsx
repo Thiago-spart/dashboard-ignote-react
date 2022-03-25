@@ -1,6 +1,7 @@
 import { signIn, useSession } from "next-auth/react";
 
-import { Button, Flex } from "@chakra-ui/react";
+import { Button, Flex, Heading, Icon } from "@chakra-ui/react";
+import { RiGoogleLine, RiGithubLine, RiFacebookBoxLine } from "react-icons/ri";
 
 import { HeadTitle } from "web/components/HeadTitle";
 
@@ -22,19 +23,44 @@ export const SignIn: FCWithLayout = () => {
 					p="8"
 					borderRadius="8"
 					flexDir="column"
+					gap="6"
+					justify="center"
+					align="center"
 				>
-					<Button
-						type="button"
-						mt="6"
-						colorScheme="pink"
-						size="lg"
-						onClick={() => {
-							signIn("google");
-						}}
-						isLoading={loading}
-					>
-						Entrar
-					</Button>
+					<Heading as="h2" alignSelf="flex-start">
+						Log-in with
+					</Heading>
+
+					<Flex align="center" justify="space-evenly" w="100%">
+						<Button
+							type="button"
+							colorScheme="pink"
+							isLoading={loading}
+							disabled
+						>
+							<Icon as={RiGithubLine} fontSize="24" />
+						</Button>
+
+						<Button
+							type="button"
+							colorScheme="pink"
+							onClick={() => {
+								signIn("google");
+							}}
+							isLoading={loading}
+						>
+							<Icon as={RiGoogleLine} fontSize="24" />
+						</Button>
+
+						<Button
+							type="button"
+							colorScheme="pink"
+							isLoading={loading}
+							disabled
+						>
+							<Icon as={RiFacebookBoxLine} fontSize="24" />
+						</Button>
+					</Flex>
 				</Flex>
 			</Flex>
 		</>
