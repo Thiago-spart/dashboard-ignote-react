@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/comma-dangle */
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 /* eslint-disable arrow-parens */
 /* eslint-disable prettier/prettier */
