@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable sonarjs/no-duplicate-string */
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 import faker from "faker";
 import {
@@ -12,6 +14,7 @@ interface UserProps {
 	name: string;
 	email: string;
 	created_at: string;
+	password: string;
 }
 
 export const makeServer = () => {
@@ -29,6 +32,9 @@ export const makeServer = () => {
 				},
 				email: () => {
 					return faker.internet.email().toLowerCase();
+				},
+				password: () => {
+					return faker.internet.password();
 				},
 				createdAt: () => {
 					return faker.date.recent(10);
@@ -62,6 +68,7 @@ export const makeServer = () => {
 			});
 
 			this.del("/users/:id");
+			this.patch("/users/:id");
 
 			this.get("/users/:id");
 			this.post("/users");

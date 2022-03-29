@@ -2,8 +2,6 @@
 /* eslint-disable multiline-ternary */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable @typescript-eslint/no-magic-numbers */
-import NextLink from "next/link";
-
 import {
 	Box,
 	Button,
@@ -20,12 +18,13 @@ import {
 	Thead,
 	Tr,
 	useBreakpointValue,
-	Link,
+	Link as ChakraLink,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { RiAddLine, RiCloseLine, RiPencilLine } from "react-icons/ri";
 
 import { HeadTitle } from "web/components/HeadTitle";
+import { NextLink } from "web/components/NextLink";
 import { Pagination } from "web/components/Pagination";
 
 import { useUsers } from "../../../services/hooks/useUsers";
@@ -85,9 +84,9 @@ export const UserList: FCWithLayout = () => {
 						)}
 					</Heading>
 
-					<NextLink href="/users/create" passHref>
+					<NextLink href="/users/create">
 						<Button
-							as="a"
+							as="button"
 							size="sm"
 							fontSize="sm"
 							colorScheme="pink"
@@ -128,12 +127,12 @@ export const UserList: FCWithLayout = () => {
 										<Td>
 											<Box>
 												<Text fontWeight="bold">
-													<Link
+													<ChakraLink
 														color="purple.400"
 														onMouseEnter={() => handlePrefetchUser(id)}
 													>
 														{name}
-													</Link>
+													</ChakraLink>
 												</Text>
 												<Text fontSize="sm" color="gray.300">
 													{email}
@@ -144,16 +143,18 @@ export const UserList: FCWithLayout = () => {
 										{isWideVersion && (
 											<Td>
 												<Flex align="center" justify="center" gap="4">
-													<Button
-														as="a"
-														size="sm"
-														fontSize="sm"
-														colorScheme="purple"
-														cursor="pointer"
-														aria-label="Edit user"
-													>
-														<Icon as={RiPencilLine} fontSize="16" />
-													</Button>
+													<NextLink href={`/users/edit/${id}`}>
+														<Button
+															as="button"
+															size="sm"
+															fontSize="sm"
+															colorScheme="purple"
+															cursor="pointer"
+															aria-label="Edit user"
+														>
+															<Icon as={RiPencilLine} fontSize="16" />
+														</Button>
+													</NextLink>
 
 													<Button
 														as="a"
