@@ -13,12 +13,16 @@ import {
 	Flex,
 	Heading,
 	HStack,
+	Icon,
+	InputGroup,
+	InputRightElement,
 	SimpleGrid,
 	VStack,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import type { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
+import { RiEyeCloseLine, RiEyeLine } from "react-icons/ri";
 import { useMutation } from "react-query";
 
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -50,9 +54,12 @@ const EditUserFormSchema = yup.object().shape({
 
 export const EditUser: FCWithLayout = () => {
 	const [selectedUser, setSelectedUser] = useState<EditUserDataFormProps>();
+	const [showPassword, setShowPassword] = useState(false);
+
+	const handlePasswordVisibility = () => setShowPassword(!showPassword);
+
 	const router = useRouter();
 	const UserId = router.query.slug;
-	// console.log(router);
 
 	const { register, handleSubmit, formState, setValue } =
 		useForm<EditUserDataFormProps>({
@@ -140,20 +147,56 @@ export const EditUser: FCWithLayout = () => {
 					</SimpleGrid>
 
 					<SimpleGrid minChildWidth="240px" spacing={["6", "8"]} w="100%">
-						<Input
-							type="password"
-							label="Password"
-							error={errors.password}
-							{...register("password", { disabled: !selectedUser?.password })}
-						/>
-						<Input
-							type="password"
-							label="Confirming password"
-							error={errors.password_confirmation}
-							{...register("password_confirmation", {
-								disabled: !selectedUser?.password,
-							})}
-						/>
+						<InputGroup position="relative">
+							<Input
+								type={showPassword ? "text" : "password"}
+								label="Password"
+								error={errors.password}
+								{...register("password", { disabled: !selectedUser?.password })}
+							/>
+							<InputRightElement position="absolute" top="9" right="2">
+								<Button
+									variant="unstyled"
+									size="sm"
+									onClick={handlePasswordVisibility}
+									display="flex"
+									alignItems="center"
+									justifyContent="center"
+								>
+									{showPassword ? (
+										<Icon as={RiEyeLine} fontSize="20" />
+									) : (
+										<Icon as={RiEyeCloseLine} fontSize="20" />
+									)}
+								</Button>
+							</InputRightElement>
+						</InputGroup>
+						<InputGroup position="relative">
+							<Input
+								type={showPassword ? "text" : "password"}
+								label="Confirming password"
+								error={errors.password_confirmation}
+								{...register("password_confirmation", {
+									disabled: !selectedUser?.password,
+								})}
+							/>
+							<InputRightElement position="absolute" top="9" right="2">
+								<Button
+									variant="unstyled"
+									size="sm"
+									onClick={handlePasswordVisibility}
+									display="flex"
+									alignItems="center"
+									justifyContent="center"
+								>
+									{showPassword ? (
+										<Icon as={RiEyeLine} fontSize="20" />
+									) : (
+										<Icon as={RiEyeCloseLine} fontSize="20" />
+									)}
+								</Button>
+							</InputRightElement>
+						</InputGroup>
 					</SimpleGrid>
 				</VStack>
 
