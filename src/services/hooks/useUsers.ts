@@ -9,6 +9,7 @@ interface UserProps {
 	email: string;
 	created_at: string;
 	createdAt: string;
+	updateAt?: string;
 }
 
 interface GetUserResponseProps {
