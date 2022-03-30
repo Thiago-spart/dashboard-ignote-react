@@ -27,6 +27,8 @@ import { HeadTitle } from "web/components/HeadTitle";
 import { NextLink } from "web/components/NextLink";
 import { Pagination } from "web/components/Pagination";
 
+import { ConfirmDeleteDialog } from "./components/ConfirmDeleteDialog";
+
 import { useUsers } from "../../../services/hooks/useUsers";
 
 import type { FCWithLayout } from "types/interfaces/layout";
@@ -156,17 +158,7 @@ export const UserList: FCWithLayout = () => {
 														</Button>
 													</NextLink>
 
-													<Button
-														as="a"
-														size="sm"
-														fontSize="sm"
-														cursor="pointer"
-														colorScheme="red"
-														aria-label="Delete user"
-														onClick={() => deleteUser(id)}
-													>
-														<Icon as={RiCloseLine} fontSize="16" />
-													</Button>
+													<ConfirmDeleteDialog userId={id} refetch={refetch} />
 												</Flex>
 											</Td>
 										)}
