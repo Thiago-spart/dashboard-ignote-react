@@ -12,7 +12,7 @@ module.exports = {
 	},
 	moduleDirectories: ["node_modules", "src"],
 	moduleFileExtensions: ["js", "jsx", "ts", "tsx", "json"],
-	setupFiles: ["<rootDir>/src/web/tests/setup.ts"],
+	// setupFiles: ["<rootDir>/src/web/tests/setup.ts"],
 	transform: {
 		"^.+\\.(js|jsx|ts|tsx)$": "ts-jest",
 	},
