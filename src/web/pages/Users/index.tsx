@@ -62,18 +62,6 @@ export const UserList: FCWithLayout = () => {
 		);
 	};
 
-	const deleteUser = async (id: string) => {
-		try {
-			const res = await api.delete(`users/${id}`);
-
-			refetch();
-
-			return res;
-		} catch (err: unknown) {
-			return err;
-		}
-	};
-
 	return (
 		<>
 			<HeadTitle title="Users" />
